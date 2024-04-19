@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="fglImport">
+      <UniqueIdentifier>{793e7362-eabf-4f13-99a2-c205ba0488b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fglMath">
+      <UniqueIdentifier>{f5fbe21a-25d9-4d25-91d9-1e680ef9164c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fglScene">
+      <UniqueIdentifier>{910b1fef-b3d2-4eae-88d8-5a625d5fe2d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fglScene\fglLightMat">
+      <UniqueIdentifier>{675dd4ff-dfcb-4fbf-a5f3-ce01a8a934b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fglSys">
+      <UniqueIdentifier>{426fc0b0-d45c-4a53-b323-baa27723422b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="doc">
+      <UniqueIdentifier>{284ea0f0-6ea1-4d62-8284-d53f7287f959}</UniqueIdentifier>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="pro_ext2.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="fglAnim.h">
+      <Filter>fglScene</Filter>
+    </ClInclude>
+    <ClInclude Include="fglCam.h">
+      <Filter>fglScene</Filter>
+    </ClInclude>
+    <ClInclude Include="fglMesh.h">
+      <Filter>fglScene</Filter>
+    </ClInclude>
+    <ClInclude Include="fglModel.h">
+      <Filter>fglScene</Filter>
+    </ClInclude>
+    <ClInclude Include="fglSkel.h">
+      <Filter>fglScene</Filter>
+    </ClInclude>
+    <ClInclude Include="fglImport.h">
+      <Filter>fglImport</Filter>
+    </ClInclude>
+    <ClInclude Include="fglVBO.h">
+      <Filter>fglSys</Filter>
+    </ClInclude>
+    <ClInclude Include="fglMaterial.h">
+      <Filter>fglScene\fglLightMat</Filter>
+    </ClInclude>
+    <ClInclude Include="fglTexture.h">
+      <Filter>fglScene\fglLightMat</Filter>
+    </ClInclude>
+    <ClInclude Include="fglPM.h">
+      <Filter>fglImport</Filter>
+    </ClInclude>
+    <ClInclude Include="fgl.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="fglLight.h">
+      <Filter>fglScene\fglLightMat</Filter>
+    </ClInclude>
+    <ClInclude Include="fglMem.h">
+      <Filter>fglSys</Filter>
+    </ClInclude>
+    <ClInclude Include="fglMutex.h">
+      <Filter>fglSys</Filter>
+    </ClInclude>
+    <ClInclude Include="fglScene.h">
+      <Filter>fglScene</Filter>
+    </ClInclude>
+    <ClInclude Include="fglViewport.h">
+      <Filter>fglScene</Filter>
+    </ClInclude>
+    <ClInclude Include="fglLog.h">
+      <Filter>fglSys</Filter>
+    </ClInclude>
+    <ClInclude Include="fglShader.h">
+      <Filter>fglScene\fglLightMat</Filter>
+    </ClInclude>
+    <ClInclude Include="fglText.h">
+      <Filter>fglScene</Filter>
+    </ClInclude>
+    <ClInclude Include="fglBind.h">
+      <Filter>fglSys</Filter>
+    </ClInclude>
+    <ClInclude Include="fgl3DGen.h">
+      <Filter>fglMath</Filter>
+    </ClInclude>
+    <ClInclude Include="fglSceneGraph.h">
+      <Filter>fglScene</Filter>
+    </ClInclude>
+    <ClInclude Include="fglCollider.h">
+      <Filter>fglScene</Filter>
+    </ClInclude>
+    <ClInclude Include="GLHelper.h">
+      <Filter>fglSys</Filter>
+    </ClInclude>
+    <ClInclude Include="fgl3DPrimitives.h">
+      <Filter>fglScene</Filter>
+    </ClInclude>
+    <ClInclude Include="doc\dox.h">
+      <Filter>doc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\gl\glew.c">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="pro_ext2.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="fglAnim.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglCam.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglMesh.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglModel.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglSkel.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglImport.cpp">
+      <Filter>fglImport</Filter>
+    </ClCompile>
+    <ClCompile Include="fglMaterial.cpp">
+      <Filter>fglScene\fglLightMat</Filter>
+    </ClCompile>
+    <ClCompile Include="fglTexture.cpp">
+      <Filter>fglScene\fglLightMat</Filter>
+    </ClCompile>
+    <ClCompile Include="fglPM.cpp">
+      <Filter>fglImport</Filter>
+    </ClCompile>
+    <ClCompile Include="fglLight.cpp">
+      <Filter>fglScene\fglLightMat</Filter>
+    </ClCompile>
+    <ClCompile Include="fglMem.cpp">
+      <Filter>fglSys</Filter>
+    </ClCompile>
+    <ClCompile Include="fglMutex.cpp">
+      <Filter>fglSys</Filter>
+    </ClCompile>
+    <ClCompile Include="fglScene.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglViewport.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglLog.cpp">
+      <Filter>fglSys</Filter>
+    </ClCompile>
+    <ClCompile Include="fgl.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="fglShader.cpp">
+      <Filter>fglScene\fglLightMat</Filter>
+    </ClCompile>
+    <ClCompile Include="fglText.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglBind.cpp">
+      <Filter>fglSys</Filter>
+    </ClCompile>
+    <ClCompile Include="fgl3DGen.cpp">
+      <Filter>fglMath</Filter>
+    </ClCompile>
+    <ClCompile Include="fglFACE.cpp">
+      <Filter>fglMath</Filter>
+    </ClCompile>
+    <ClCompile Include="fglMAT4.cpp">
+      <Filter>fglMath</Filter>
+    </ClCompile>
+    <ClCompile Include="fglQUAT.cpp">
+      <Filter>fglMath</Filter>
+    </ClCompile>
+    <ClCompile Include="fglRAY.cpp">
+      <Filter>fglMath</Filter>
+    </ClCompile>
+    <ClCompile Include="fglSceneGraph.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglCollider.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglBBox.cpp">
+      <Filter>fglMath</Filter>
+    </ClCompile>
+    <ClCompile Include="fglCLIP.cpp">
+      <Filter>fglMath</Filter>
+    </ClCompile>
+    <ClCompile Include="GLHelper.cpp">
+      <Filter>fglSys</Filter>
+    </ClCompile>
+    <ClCompile Include="fglTRANSFORM.cpp">
+      <Filter>fglMath</Filter>
+    </ClCompile>
+    <ClCompile Include="fglNode.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglVisual.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fgl3DPrimitives.cpp">
+      <Filter>fglScene</Filter>
+    </ClCompile>
+    <ClCompile Include="fglVBO.cpp">
+      <Filter>fglSys</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
