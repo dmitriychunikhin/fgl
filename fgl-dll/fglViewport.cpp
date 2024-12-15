@@ -121,7 +121,7 @@ bool fglViewport::copy(const fglBind* poSrc, fglBITFLAG pnShare)
 void fglViewport::selectLights(const fglCollection<fglLight>& paLights)
 {
 	unsigned lnLights;
-	unsigned lnMaxLights(fglScene::aRenderLights.capacity());
+	unsigned lnMaxLights = fglScene::aRenderLights.capacity();
 	unsigned liLight;
 	fglLight* loLight;
 	unsigned i;
@@ -387,6 +387,8 @@ int fglPickInfo::pick(long pnX, long pnY, fglNode* poStartNode, fglViewport* poV
 	if (!loStartNode) return 0;
 
 	if ( loViewport->oCam.empty() ) return 0;
+
+	loViewport->buildProjection();
 	
 	oWinP.x = float(pnX - loScene->oWindowRect.left);
 	oWinP.y = float(loViewport->oRect.height - pnY + loScene->oWindowRect.top);

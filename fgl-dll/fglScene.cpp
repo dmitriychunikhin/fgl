@@ -333,7 +333,6 @@ void fglScene::loadGL(HWND phWndParent)
 
 	///////////////////////////////////////////////
 	//aViewports->reserve(5);
-	//aRenderLights.reserve(5);
 
 	///////////////////////////////////////////////
 	oMaterial = fglBindFactory::createNonPersistent<fglMaterial>();
@@ -351,6 +350,7 @@ void fglScene::loadGL(HWND phWndParent)
 	oGLHelper.takeCaps();
 	o3DPrimitives.build(*this);
 
+	aRenderLights.reserve(oGLHelper.getMaxLights());
 
 	///////////////////////////////////////////////
 	setWindow();
