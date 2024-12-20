@@ -175,6 +175,8 @@ fglVECTOR fglViewport::project(const fglVECTOR& poWorldPoint)
 	if ( !loScene ) return loWindowPoint;
 	if ( oCam.empty() ) return loWindowPoint;
 	
+	buildProjection();
+	
 	if ( fglProject(poWorldPoint, fglScene::identTransMatrix, mProj, oRect, loWindowPoint) )
 	{
 		loWindowPoint.x = float(loWindowPoint.x - loScene->oWindowRect.left);
@@ -192,6 +194,8 @@ fglVECTOR fglViewport::unproject(fglVECTOR poWindowPoint)
 
 	if ( !loScene ) return loWorldPoint;
 	if ( oCam.empty() ) return loWorldPoint;
+	
+	buildProjection();
 	
 	poWindowPoint.x=float(poWindowPoint.x - loScene->oWindowRect.left);
 	poWindowPoint.y=float(oRect.height - poWindowPoint.y + loScene->oWindowRect.top);
@@ -427,7 +431,6 @@ void fglPickInfo::pickNodes::testVisual(fglWalkNodes* poHandler, fglNode* poNode
 	const fglViewport* loViewport = loPickInfo->oViewport.lock().map();
 	
 	if (!loViewport) return;
-
 
 	if ( ! poVisual->testInFrustum(*loViewport, poHandler->currentView) ) return;
 
