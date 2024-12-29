@@ -99,7 +99,7 @@ void fglViewport::call(fglEvent& poEvent)
 		return;
 	}
 
-	if (poEvent.name == fglEVENT_testPointInFrustom)
+	if (poEvent.name == fglEVENT_testPointInFrustum)
 	{
 		_RetValue2l(0);
 		if (poEvent.nParams >= 1 && poEvent.aParams[0].ev_type == 'O') {
