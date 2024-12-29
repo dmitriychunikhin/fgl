@@ -99,6 +99,20 @@ void fglViewport::call(fglEvent& poEvent)
 		return;
 	}
 
+	if (poEvent.name == fglEVENT_testPointInFrustom)
+	{
+		_RetValue2l(0);
+		if (poEvent.nParams >= 1 && poEvent.aParams[0].ev_type == 'O') {
+			fglVECTOR loPoint = _GetObjectProperty2vec(poEvent.aParams[0]);
+			_RetValue2l(testPointInFrustum(loPoint));
+		} else if (poEvent.nParams = 3) {
+			fglVECTOR loPoint = fglVECTOR(_GetValue2f(poEvent.aParams[0]), _GetValue2f(poEvent.aParams[1]), _GetValue2f(poEvent.aParams[2]));
+			_RetValue2l(testPointInFrustum(loPoint));
+		}
+		return;
+	}
+
+
 	fglBind::call(poEvent);
 }
 
@@ -117,6 +131,14 @@ bool fglViewport::copy(const fglBind* poSrc, fglBITFLAG pnShare)
 	
 	return true;
 }
+
+bool fglViewport::testPointInFrustum(const fglVECTOR& poPoint) const
+{
+	if (oCam.empty()) return false;
+	if (oFrustum.testPoint(poPoint) == fglFRUSTUM::OUTSIDE) return false;
+	return true;
+}
+
 
 void fglViewport::selectLights(const fglCollection<fglLight>& paLights)
 {

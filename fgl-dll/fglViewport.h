@@ -63,6 +63,8 @@ public:
 	static void selectLights(const fglCollection<fglLight>& paLights);
 	static void applyLights(void);
 
+	bool testPointInFrustum(const fglVECTOR& poPoint) const;
+
 };
 
 
