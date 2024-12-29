@@ -32,6 +32,7 @@ private:
 	fglString MSAAModeInfo{ "" }; //MSAA mode description
 
 	bool FLAG_RENDER{ false };
+	bool FLAG_RENDERLOCK{ false };
 
 	bool vsync{ true };
 

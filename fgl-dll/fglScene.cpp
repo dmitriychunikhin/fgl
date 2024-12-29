@@ -50,6 +50,7 @@ void fglScene::call(fglEvent& poEvent)
 	if (poEvent.name == fglEVENT_getIdleTime) { _RetValue2f(oRenderStats.getIdleTime()); return; }
 	if (poEvent.name == fglEVENT_getTime) { _RetValue2f(oRenderStats.getTime()); return; }
 	
+	if (poEvent.name == fglEVENT_renderLock) { if (poEvent.nParams) { FLAG_RENDERLOCK = _GetValue2l(poEvent.aParams[0]); } _RetValue2l(FLAG_RENDERLOCK);  return; }
 	
 
 	fglViewport::call(poEvent);
@@ -422,6 +423,7 @@ void fglScene::render(void)
 {
 	if ( ! hRC ) return;
 	if (  ! FLAG_RENDER ) return;
+	if ( FLAG_RENDERLOCK ) return;
 
 	FLAG_RENDER = false;
 	

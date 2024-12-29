@@ -228,5 +228,6 @@ float fglSQR(const float& pnVal);
 #define fglEVENT_getLookAt 184
 #define fglEVENT_setRotQuat 185
 #define fglEVENT_loadDataFromString 186
+#define fglEVENT_renderLock 187
 
 #endif
