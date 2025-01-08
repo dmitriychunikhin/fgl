@@ -21,10 +21,7 @@ public:
 	fglBBox bbox;
 	fgl3DRect bboxInt;
 	fgl3DRect bboxExt;
-	
-	
-	float viewRangeMin;
-	float viewRangeMax;
+	fgl3DRect viewRangeDist;
 	fgl3DRect viewRangeRot;
 
 	enum { 
@@ -143,6 +140,7 @@ public:
 	bool isVisible;
 	
 	//bad for perf virtual ~fglNode(void);
+	virtual void destroy(void);
 	
 	virtual fglString fgl_class(void) const { return "node"; }
 	virtual bool copy(const fglBind* poSrc, fglBITFLAG pnShare=0);

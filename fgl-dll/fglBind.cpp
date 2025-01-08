@@ -38,8 +38,10 @@ void fglBindFactory::releaseBind(const fglREF<fglBind>& poBind)
 {
 	if (poBind.empty()) return;
 
-	const fglREF<fglScene>& loScene = poBind->getScene().lock();
+	poBind->destroy();
 
+	const fglREF<fglScene>& loScene = poBind->getScene().lock();
+	
 	if (loScene.exist())
 	{
 		loScene->setRenderFlag(true);
@@ -140,6 +142,10 @@ fglBind::~fglBind(void)
 { 
 	fglBindFactory::freeBind(hFGL);
 	setExtProps(NULL);
+}
+
+void fglBind::destroy(void) {
+
 }
 
 fglWeakREF<fglScene> fglBind::getScene(void) const 

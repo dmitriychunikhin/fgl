@@ -247,6 +247,7 @@ public:
 	
 	
 	virtual ~fglBind(void);
+	virtual void destroy(void);
 	
 	const fglBind& operator=(const fglBind& poSrc) {  copy(&poSrc); return *this; }
 
@@ -334,6 +335,11 @@ public:
 
 		AITEMSHASH::iterator iItem = aItemsHash->find(poItemPtr);
 		if (iItem == aItemsHash->end()) return false;
+		
+		for (AITEMSHASH::iterator iReindex = aItemsHash->begin(); iReindex != aItemsHash->end(); ++iReindex) {
+			if (iReindex->second > iItem->second) iReindex->second--;
+		}
+
 		aItems->erase(aItems->begin() + iItem->second);
 		aItemsHash->erase(iItem);
 		return true;
@@ -386,10 +392,12 @@ public:
 		if (pnShare.get())
 		{
 			aItems.inst(&loSrc->aItems); 
+			aItemsHash.inst(&loSrc->aItemsHash); 
 		}
 		else
 		{
 			aItems.copy(&loSrc->aItems);
+			aItemsHash.copy(&loSrc->aItemsHash);
 		}
 		return true;
 	}

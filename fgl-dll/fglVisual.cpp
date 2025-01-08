@@ -84,8 +84,29 @@ void fglVisual::call(fglEvent& poEvent)
 	}
 
 
-	if (poEvent.name == fglEVENT_viewRangeMin) {if (poEvent.nParams) { viewRangeMin = _GetValue2f(poEvent.aParams[0]); setSceneRenderFlag(); } _RetValue2f(viewRangeMin); return;}
-	if (poEvent.name == fglEVENT_viewRangeMax) {if (poEvent.nParams) { viewRangeMax = _GetValue2Infinite(_GetValue2f(poEvent.aParams[0])); setSceneRenderFlag(); } _RetValue2f(_RetValue2Infinite(viewRangeMax)); return;}
+	if (poEvent.name == fglEVENT_getViewRangeDist)
+	{
+		if (poEvent.nParams != 2) return;
+		_SetObjectProperty2vec(poEvent.aParams[0], viewRangeDist.min);
+		_SetObjectProperty2vec(poEvent.aParams[1], viewRangeDist.max);
+		return;
+	}
+	if (poEvent.name == fglEVENT_setViewRangeDist)
+	{
+		if (poEvent.nParams != 6) return;
+		if (poEvent.aParams[0].ev_type == 'O' || poEvent.aParams[1].ev_type == 'O')
+		{
+			viewRangeDist.min = _GetObjectProperty2vec(poEvent.aParams[0]);
+			viewRangeDist.max = _GetObjectProperty2vec(poEvent.aParams[1]);
+		}
+		else
+		{
+			viewRangeDist.min.build(_GetValue2f(poEvent.aParams[0]), _GetValue2f(poEvent.aParams[1]), _GetValue2f(poEvent.aParams[2]));
+			viewRangeDist.max.build(_GetValue2f(poEvent.aParams[3]), _GetValue2f(poEvent.aParams[4]), _GetValue2f(poEvent.aParams[5]));
+		}
+		setSceneRenderFlag();
+		return;
+	}
 
 	if (poEvent.name == fglEVENT_getViewRangeRot)
 	{
@@ -128,8 +149,6 @@ void fglVisual::call(fglEvent& poEvent)
 
 fglVisual::fglVisual(void) : bbox(fglScene::identTrans,fglScene::identTrans)
 {
-	viewRangeMin = 0.0f; 
-	viewRangeMax = fglINFINITE; 
 	oStretchClip.create();
 	renderImpl = fglVisual::renderVisual;
 }
@@ -145,8 +164,7 @@ bool fglVisual::copy(const fglBind* poSrc, fglBITFLAG pnShare)
 	bbox = loVisual->bbox;
 	bboxInt = loVisual->bboxInt;
 	bboxExt = loVisual->bboxExt;
-	viewRangeMin = loVisual->viewRangeMin;
-	viewRangeMax = loVisual->viewRangeMax;
+	viewRangeDist = loVisual->viewRangeDist;
 	viewRangeRot = loVisual->viewRangeRot;
 
 	nStretch = loVisual->nStretch;
@@ -260,30 +278,9 @@ void fglVisual::renderStretch(void) const
 	fglTRANSFORM loSaveTrans(fglScene::oRenderNodes.currentView);
 	fglMAT4 loSaveTransMatrix(fglScene::oRenderNodes.currentViewMatrix);
 
-	//////////////////////////////////////////////////////////////////
-	fglVECTOR loSavePos = fglScene::oRenderNodes.currentView.pos;
-	if ( fglScene::oRenderViewport->oFrustum.testPoint(fglScene::oRenderNodes.currentView.pos)==fglFRUSTUM::OUTSIDE ) 
-	{
-		fglROW4 loCamPlane;
-		fglVECTOR loCamLook=fglScene::oRenderCam->oLookVectorGlobal;
-		loCamLook.x = fabs(loCamLook.x); loCamLook.y = fabs(loCamLook.y); loCamLook.z = fabs(loCamLook.z);
-		if (loCamLook.x > loCamLook.y && loCamLook.x > loCamLook.z ) loCamLook.build(1.0f, 0.0f, 0.0f);
-		else if (loCamLook.y > loCamLook.x && loCamLook.y > loCamLook.z ) loCamLook.build(0.0f, 1.0f, 0.0f);
-		else loCamLook.build(0.0f, 0.0f, 1.0f);
-		loCamPlane.build(loCamLook, (loCamLook^fglScene::oRenderNodes.currentView.pos));
-		if ( fglScene::oRenderCam->getLookAtPlane(loCamPlane, loCamLook) )
-		{
-			fglScene::oRenderNodes.currentView.pos = loCamLook;
-		}
-	}
-	
 	fglBITFLAG lnStretch(nStretch);
-	
-	if ( loMainLOD = renderGetLOD() ) 
-	if ( loMainLOD->nStretch.get() ) lnStretch=loMainLOD->nStretch;
 
-	fglScene::oRenderNodes.currentView.pos = loSavePos;
-	//////////////////////////////////////////////////////////////////
+	loMainLOD = renderGetLOD();
 
 	if ( lnStretch.check(nStretchClip) ) oStretchClip->bind();
 	
@@ -503,23 +500,22 @@ bool fglVisual::testIsVisible(const fglViewport& poViewport, const fglTRANSFORM&
 {
 	if (poViewport.oCam.empty()) return false;
 
-	if ( viewRangeMin!=0.0f || viewRangeMax!=fglINFINITE )
+	if (!viewRangeDist.isNull())
 	{
-		fglBBox loBBox(poTRG, poTRG); 
+		fglBBox loBBox(poTRG, poTRG);
 		loBBox = bbox;
+		fglVECTOR loDist = loBBox.getCenterGlobal() - poViewport.oCam->trg.pos;
+		loDist.x = fabsf(loDist.x);
+		loDist.y = fabsf(loDist.y);
+		loDist.z = fabsf(loDist.z);
 
-		float lnViewportArea = float(poViewport.oRect.width * poViewport.oRect.height);
-		float lnBBoxArea = loBBox.getSquareRadiusLocal(); 
-		lnBBoxArea *= fglPI;
+		if ((loDist.x < viewRangeDist.min.x || viewRangeDist.min.x == 0) &&
+			(loDist.y < viewRangeDist.min.y || viewRangeDist.min.y == 0) &&
+			loDist.z < viewRangeDist.min.z ) return false;
 		
-		fglVECTOR loDist = poViewport.oCam->trg.pos - loBBox.getCenterGlobal();
-		loDist = poViewport.oCam->trgInv.rot * loDist; 
-		float lnDist = std::max<float>(loDist.z*loDist.z, fglEPSILON);
-
-		float lnSize = (lnBBoxArea * lnViewportArea * poViewport.mProjPerspective.a1 * poViewport.mProjPerspective.b2) / lnDist;
-
-		if ( lnSize < (viewRangeMin*viewRangeMin) ) return false; 
-		if ( viewRangeMax!=fglINFINITE ) if ( lnSize > (viewRangeMax*viewRangeMax) ) return false; 
+		if (loDist.x > viewRangeDist.max.x && viewRangeDist.max.x != 0) return false;
+		if (loDist.y > viewRangeDist.max.y && viewRangeDist.max.y != 0) return false;
+		if (loDist.z > viewRangeDist.max.z && viewRangeDist.max.z != 0) return false;
 	}
 
 	if ( ! viewRangeRot.isNull() )

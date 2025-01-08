@@ -184,8 +184,8 @@ float fglSQR(const float& pnVal);
 #define fglEVENT_scaleAt 140
 #define fglEVENT_scaleTo 141
 #define fglEVENT_lookAt 142
-#define fglEVENT_viewRangeMin 143
-#define fglEVENT_viewRangeMax 144
+#define fglEVENT_getViewRangeDist 143
+#define fglEVENT_setViewRangeDist 144
 #define fglEVENT_getViewRangeRot 145
 #define fglEVENT_setViewRangeRot 146
 //#define fglEVENT_vrrminz 147

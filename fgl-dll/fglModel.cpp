@@ -235,12 +235,11 @@ void fglModel::buildLOD(float pnViewRange, float pnStep, unsigned pnSteps)
 		loLOD = fglBindFactory::createNonPersistent<fglModel>();
 		loLOD->copy(this, fglSHARE_ANIM);
 		loLOD->bboxExt.setNull();
-		loLOD->viewRangeMin = 0.0f;
-		loLOD->viewRangeMax = fglINFINITE;
+		loLOD->viewRangeDist.setNull();
 		loLOD->viewRangeRot.setNull();
 		laLODs->add(loLOD);
 		fglWalkNodes::walkNodes(loLOD->oRootJoint.map(), &loMeshBuild);
-		loLOD->viewRangeMax = (lnSteps-liStep+1) * pnViewRange;
+		loLOD->viewRangeDist.max.x = loLOD->viewRangeDist.max.y = loLOD->viewRangeDist.max.z = (lnSteps-liStep+1) * pnViewRange;
 		loLOD->bindSkel();
 	}
 	aLODs->copy(laLODs.callBindREFMap());

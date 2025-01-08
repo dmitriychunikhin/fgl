@@ -163,7 +163,7 @@ public:
 	inline float len(void) const {return sqrt(a*a + v.x*v.x + v.y*v.y + v.z*v.z);}
 	inline fglQUAT conj(void) const {fglQUAT q; q.a=a; q.v=-v; return q; }
 	fglQUAT& normalize(void);
-	fglQUAT invert(void) const {float n=norm(); if (n) return conj()/n; else return conj()/fglEPSILON; }
+	fglQUAT invert(void) const {float n=norm(); if (n > fglEPSILON) return conj()/n; else return conj()/fglEPSILON; }
 	
 
 	fglQUAT& build(const float& pa, const float& px, const float& py, const float& pz);

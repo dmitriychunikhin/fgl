@@ -303,6 +303,10 @@ fglNode::fglNode(void) : bbox(tr, trg), oLookVector(0.0f,0.0f,-1.0f)
 	isVisible = true;
 }
 
+void fglNode::destroy(void) {
+	setParentValue(fglREF<fglNode>());
+	fglBind::destroy();
+}
 
 
 bool fglNode::copy(const fglBind* poSrc, fglBITFLAG pnShare)
